@@ -115,17 +115,35 @@
 
         /* Hero Section */
         .hero {
-            min-height: 70vh;
+            min-height: 75vh;
+            display: grid;
+            grid-template-columns: 1fr 200px;
+            gap: 3rem;
+            align-items: center;
+            padding: 4rem 0;
+        }
+
+        .hero-content {
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: flex-start;
-            padding: 4rem 0;
+        }
+
+        .hero-decoration {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero-decoration svg {
+            width: 150px;
+            height: auto;
+            opacity: 0.7;
         }
 
         .hero-subtitle {
             color: var(--text-muted);
-            font-size: 12px;
+            font-size: 11px;
             text-transform: uppercase;
             letter-spacing: 3px;
             margin-bottom: 1.5rem;
@@ -133,12 +151,12 @@
 
         .hero-title {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 52px;
+            font-size: 48px;
             font-weight: 400;
             font-style: italic;
-            line-height: 1.15;
+            line-height: 1.2;
             margin-bottom: 1.5rem;
-            max-width: 650px;
+            max-width: 550px;
             color: var(--text-dark);
         }
 
@@ -150,7 +168,7 @@
             color: var(--text-muted);
             font-size: 15px;
             line-height: 1.8;
-            max-width: 500px;
+            max-width: 450px;
             margin-bottom: 2.5rem;
         }
 
@@ -256,17 +274,22 @@
             border: none;
             border-bottom: 1px dotted var(--border-light);
             border-radius: 0;
-            padding: 1.5rem 0;
+            padding: 1.25rem 0;
             position: relative;
             display: grid;
-            grid-template-columns: 50px 1fr auto;
-            align-items: baseline;
-            gap: 1.5rem;
+            grid-template-columns: 40px 1fr auto;
+            align-items: center;
+            gap: 1.25rem;
             transition: all 0.3s ease;
+            text-decoration: none;
         }
 
         .project-card:hover {
-            background: rgba(155, 123, 142, 0.03);
+            padding-left: 0.5rem;
+        }
+
+        .project-card:hover .project-title {
+            color: var(--accent-lavender);
         }
 
         .project-number {
@@ -276,23 +299,10 @@
             color: var(--text-muted);
         }
 
-        .project-tags {
-            display: none;
-        }
-
-        .project-tag {
-            font-size: 11px;
-            padding: 0;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            background: none;
-            color: var(--text-muted);
-        }
-
-        .project-tag.primary,
-        .project-tag.secondary {
-            background: none;
-            color: var(--text-muted);
+        .project-content {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
         }
 
         .project-title {
@@ -302,33 +312,21 @@
             margin-bottom: 0;
             color: var(--text-dark);
             line-height: 1.4;
+            transition: color 0.3s ease;
         }
 
-        .project-description {
-            display: none;
-        }
-        
-        .project-description strong {
-            color: var(--accent-lavender);
+        .project-subtitle {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.5;
         }
 
         .project-tech {
-            font-size: 12px;
-            color: var(--text-muted);
+            font-size: 11px;
+            color: var(--accent-lavender);
             text-align: right;
-            min-width: 80px;
-        }
-
-        .project-link {
-            display: none;
-        }
-
-        .project-link svg {
-            display: none;
-        }
-
-        .project-status {
-            display: none;
+            min-width: 70px;
+            letter-spacing: 0.5px;
         }
 
         /* About Section */
@@ -485,12 +483,15 @@
 
         /* Responsive Design */
         @media (max-width: 768px) {
+            .hero { grid-template-columns: 1fr; min-height: auto; padding: 3rem 0; }
+            .hero-decoration { display: none; }
             .hero-title { font-size: 36px; }
             .hero-tagline { font-size: 14px; }
             .hero-buttons { flex-direction: column; align-items: flex-start; }
             .nav-links { display: none; }
-            .project-card { grid-template-columns: 40px 1fr; }
+            .project-card { grid-template-columns: 35px 1fr; }
             .project-tech { display: none; }
+            .project-subtitle { font-size: 12px; }
             .section { padding: 3rem 0; }
             .about-content { grid-template-columns: 1fr; gap: 2rem; }
             .about-photo { max-width: 150px; margin: 0 auto; position: static; }
@@ -517,13 +518,33 @@
         </nav>
 
         <section class="hero">
-            <div class="scanlines"></div>
-            <div class="grid-bg"></div>
-            <div class="hero-subtitle">Zeynep Göktepe · Caltech CS</div>
-            <h1 class="hero-title">From <span>diffusion</span> to neural interfaces.</h1>
-            <p class="hero-tagline">Building at the boundary of machine learning and neuroscience.</p>
-            <div class="hero-buttons">
-                <button class="cta-btn" onclick="document.getElementById('work').scrollIntoView({behavior: 'smooth'})">View Projects →</button>
+            <div class="hero-content">
+                <div class="hero-subtitle">Zeynep Göktepe · Caltech CS</div>
+                <h1 class="hero-title">From <span>diffusion</span> to neural interfaces.</h1>
+                <p class="hero-tagline">Building at the boundary of machine learning and neuroscience.</p>
+                <div class="hero-buttons">
+                    <button class="cta-btn" onclick="document.getElementById('work').scrollIntoView({behavior: 'smooth'})">View Projects →</button>
+                </div>
+            </div>
+            <div class="hero-decoration">
+                <svg viewBox="0 0 100 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Stem -->
+                    <path d="M50 200 Q48 150 52 100 Q54 80 50 60" stroke="#8a9a7a" stroke-width="2" fill="none"/>
+                    <!-- Leaves -->
+                    <path d="M50 140 Q30 130 25 145 Q35 150 50 140" fill="#a8b89a"/>
+                    <path d="M50 120 Q70 110 75 125 Q65 130 50 120" fill="#a8b89a"/>
+                    <path d="M50 160 Q70 150 72 165 Q62 170 50 160" fill="#a8b89a"/>
+                    <!-- Lavender buds -->
+                    <ellipse cx="50" cy="55" rx="6" ry="10" fill="#9b7b8e"/>
+                    <ellipse cx="45" cy="45" rx="5" ry="8" fill="#a88b9e"/>
+                    <ellipse cx="55" cy="42" rx="5" ry="8" fill="#a88b9e"/>
+                    <ellipse cx="50" cy="35" rx="5" ry="9" fill="#9b7b8e"/>
+                    <ellipse cx="44" cy="28" rx="4" ry="7" fill="#a88b9e"/>
+                    <ellipse cx="56" cy="26" rx="4" ry="7" fill="#a88b9e"/>
+                    <ellipse cx="50" cy="18" rx="4" ry="8" fill="#9b7b8e"/>
+                    <ellipse cx="47" cy="10" rx="3" ry="6" fill="#a88b9e"/>
+                    <ellipse cx="53" cy="8" rx="3" ry="5" fill="#a88b9e"/>
+                </svg>
             </div>
         </section>
 
@@ -536,26 +557,47 @@
             <div class="projects-grid">
                 <article class="project-card fade-in fade-in-delay-1">
                     <div class="project-number">01</div>
-                    <h3 class="project-title">Autoguidance Diffusion</h3>
+                    <div class="project-content">
+                        <h3 class="project-title">Autoguidance for Diffusion Models</h3>
+                        <p class="project-subtitle">Improving posterior sampling · Paper in progress</p>
+                    </div>
                     <span class="project-tech">PyTorch</span>
                 </article>
 
                 <article class="project-card fade-in fade-in-delay-2">
                     <div class="project-number">02</div>
-                    <h3 class="project-title">Flow Hop Harmony</h3>
-                    <span class="project-tech">EEG</span>
+                    <div class="project-content">
+                        <h3 class="project-title">Flow Hop Harmony</h3>
+                        <p class="project-subtitle">EEG-controlled game · Shimojo Lab, Caltech</p>
+                    </div>
+                    <span class="project-tech">Unity · EEG</span>
                 </article>
 
                 <article class="project-card fade-in fade-in-delay-3">
                     <div class="project-number">03</div>
-                    <h3 class="project-title">Level Up App</h3>
-                    <span class="project-tech">iOS</span>
+                    <div class="project-content">
+                        <h3 class="project-title">Level Up Basketball</h3>
+                        <p class="project-subtitle">iOS app · 1,000+ downloads on App Store</p>
+                    </div>
+                    <span class="project-tech">Swift</span>
                 </article>
 
                 <article class="project-card fade-in fade-in-delay-4">
                     <div class="project-number">04</div>
-                    <h3 class="project-title">Autonomous Robot</h3>
+                    <div class="project-content">
+                        <h3 class="project-title">Autonomous Prize Robot</h3>
+                        <p class="project-subtitle">Multi-sensor fusion · 95% retrieval accuracy</p>
+                    </div>
                     <span class="project-tech">ROS2</span>
+                </article>
+
+                <article class="project-card fade-in fade-in-delay-5">
+                    <div class="project-number">05</div>
+                    <div class="project-content">
+                        <h3 class="project-title">Neural Electrophysiology</h3>
+                        <p class="project-subtitle">ML pipelines · Cedars-Sinai Medical Center</p>
+                    </div>
+                    <span class="project-tech">Jaxley</span>
                 </article>
             </div>
         </section>
