@@ -117,22 +117,23 @@
         .hero {
             min-height: 75vh;
             display: grid;
-            grid-template-columns: 1fr 200px;
-            gap: 3rem;
+            grid-template-columns: 1fr 320px; /* was 200px */
+            gap: 0.5rem; /* was 3rem */
             align-items: center;
             padding: 4rem 0;
         }
 
-        .hero-content {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-        }
-
         .hero-decoration {
             display: flex;
-            justify-content: center;
+            justify-content: flex-start; /* was center */
             align-items: center;
+            margin-left: -40px; /* pulls flower closer */
+        }
+
+        .hero-decoration svg {
+            width: 430px; /* bigger */
+            height: auto;
+            opacity: 0.8;
         }
 
         .hero-decoration svg {
