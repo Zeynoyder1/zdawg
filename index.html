@@ -3,7 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zeze | Portfolio</title>
+    <title>Zeynep Goktepe | CS @ Caltech</title>
+    <meta name="description" content="Computer Science student and researcher at Caltech specializing in machine learning, neuroscience, and intelligent systems.">
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Zeynep Göktepe | CS @ Caltech">
+    <meta property="og:description" content="ML, neuroscience, and systems researcher building intelligent software.">
+    <meta property="og:image" content="zeynep.jpg">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Zeynep Goktepe | CS @ Caltech">
+    <meta name="twitter:description" content="ML, neuroscience, and systems researcher building intelligent software.">
     <style>
         :root {
             --bg-dark: #0a0f1d;
@@ -92,6 +104,19 @@
             text-shadow: 0 0 10px var(--glow-blue);
         }
 
+        .nav-links .resume-btn {
+            background: var(--accent-blue);
+            color: var(--text-light);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            transition: background 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .nav-links .resume-btn:hover {
+            background: #2563eb;
+            box-shadow: 0 0 20px var(--glow-blue);
+        }
+
         /* Hero Section */
         .hero {
             height: calc(100vh - 100px);
@@ -122,6 +147,20 @@
         .hero-title span {
             color: transparent;
             -webkit-text-stroke: 1px var(--text-light);
+        }
+
+        .hero-tagline {
+            color: var(--muted-blue);
+            font-size: 1.15rem;
+            line-height: 1.6;
+            max-width: 600px;
+            margin-bottom: 2.5rem;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
         }
 
         /* Interactive Cinematic Button */
@@ -157,6 +196,20 @@
         .cta-btn:hover {
             border-color: var(--accent-blue);
             box-shadow: 0 0 20px var(--glow-blue);
+        }
+
+        a.cta-btn {
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-secondary {
+            background: var(--accent-blue);
+            border-color: var(--accent-blue);
+        }
+
+        .cta-secondary:hover {
+            background: #2563eb;
         }
 
         /* Animations */
@@ -315,9 +368,26 @@
         /* About Section */
         .about-content {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 280px 1fr;
             gap: 4rem;
-            align-items: center;
+            align-items: start;
+        }
+
+        .about-photo {
+            position: sticky;
+            top: 2rem;
+        }
+
+        .about-photo img {
+            width: 100%;
+            border-radius: 16px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .about-photo img:hover {
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 30px rgba(59, 130, 246, 0.2);
         }
 
         .about-text p {
@@ -341,6 +411,7 @@
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 1.5rem;
+            margin-top: 2rem;
         }
 
         .skill-item {
@@ -449,11 +520,14 @@
 
         /* Responsive Design */
         @media (max-width: 768px) {
-            .hero-title { font-size: 3rem; }
+            .hero-title { font-size: 2.5rem; }
+            .hero-tagline { font-size: 1rem; }
+            .hero-buttons { flex-direction: column; }
             .nav-links { display: none; }
             .projects-grid { grid-template-columns: 1fr; }
             .section { padding: 4rem 0; }
-            .about-content { grid-template-columns: 1fr; gap: 3rem; }
+            .about-content { grid-template-columns: 1fr; gap: 2rem; }
+            .about-photo { max-width: 200px; margin: 0 auto; position: static; }
             .skills-grid { grid-template-columns: 1fr; }
             .contact-email { font-size: 1.1rem; }
         }
@@ -472,13 +546,18 @@
                 <a href="#about">About</a>
                 <a href="cats.html">Cats</a>
                 <a href="#contact">Contact</a>
+                <a href="zeynep-resume.pdf" class="resume-btn" target="_blank">Resume</a>
             </div>
         </nav>
 
         <section class="hero">
-            <div class="hero-subtitle">Zeynep Göktepe // Caltech CS</div>
-            <h1 class="hero-title">From generative diffusion models <span>to real-time neural interfaces.</span></h1>
-            <button class="cta-btn" onclick="document.getElementById('work').scrollIntoView({behavior: 'smooth'})">Explore Projects</button>
+            <div class="hero-subtitle">CS @ Caltech</div>
+            <h1 class="hero-title">Building ML systems <span>at the intersection of neuroscience and deep learning.</span></h1>
+            <p class="hero-tagline">From diffusion models to brain-computer interfaces — I build intelligent systems that push research forward.</p>
+            <div class="hero-buttons">
+                <button class="cta-btn" onclick="document.getElementById('work').scrollIntoView({behavior: 'smooth'})">View Projects</button>
+                <a href="zeynep-resume.pdf" class="cta-btn cta-secondary" target="_blank">Download Resume</a>
+            </div>
         </section>
 
         <section id="work" class="section">
@@ -491,48 +570,48 @@
                 <article class="project-card fade-in fade-in-delay-1">
                     <div class="project-number">01</div>
                     <div class="project-tags">
-                        <span class="project-tag primary">AI/ML</span>
-                        <span class="project-tag secondary">PyTorch</span>
+                        <span class="project-tag primary">iOS</span>
+                        <span class="project-tag secondary">Firebase</span>
                     </div>
-                    <h3 class="project-title">Autoguidance for Diffusion-Based Inverse Problems</h3>
-                    <p class="project-description">Exploring how autoguidance can improve posterior sampling in diffusion models. I built benchmarks using Gaussian mixtures with known posteriors to test uncertainty calibration across DPS, DDNM+, and PnPDM samplers.</p>
-                    <span class="project-status">Paper in Progress</span>
+                    <h3 class="project-title">Level Up: Basketball Training App</h3>
+                    <p class="project-description">Published iOS app with <strong>1,000+ downloads</strong> on the App Store. Built full-stack with Swift and Firebase — drill library, workout tracking, video storage, and user progression systems.</p>
+                    <a href="https://apps.apple.com/us/app/together-level-up/id6463521780" class="project-link" target="_blank">
+                        View on App Store
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                    </a>
                 </article>
 
                 <article class="project-card fade-in fade-in-delay-2">
                     <div class="project-number">02</div>
                     <div class="project-tags">
-                        <span class="project-tag primary">Neuroinformatics</span>
-                        <span class="project-tag secondary">EEG / Unity</span>
+                        <span class="project-tag primary">AI/ML</span>
+                        <span class="project-tag secondary">PyTorch</span>
                     </div>
-                    <h3 class="project-title">Flow Hop Harmony</h3>
-                    <p class="project-description">A 2-year research project at the Shimojo Psychophysics Lab. Built a Flappy Bird-style game controlled by real-time EEG signals to study and classify flow states from brain activity patterns.</p>
-                    <span class="project-status">Ongoing Research</span>
+                    <h3 class="project-title">Autoguidance for Diffusion-Based Inverse Problems</h3>
+                    <p class="project-description">Improving posterior sampling in diffusion models. Built benchmarks with Gaussian mixtures to test uncertainty calibration across DPS, DDNM+, and PnPDM samplers. <strong>Paper in preparation.</strong></p>
+                    <span class="project-status">Paper in Progress</span>
                 </article>
 
                 <article class="project-card fade-in fade-in-delay-3">
                     <div class="project-number">03</div>
                     <div class="project-tags">
-                        <span class="project-tag primary">Computational Bio</span>
-                        <span class="project-tag secondary">Jaxley</span>
+                        <span class="project-tag primary">Neuroinformatics</span>
+                        <span class="project-tag secondary">EEG / Unity</span>
                     </div>
-                    <h3 class="project-title">Predictive Electrophysiological Modeling</h3>
-                    <p class="project-description">Research at Cedars-Sinai Medical Center. Built deep learning pipelines that predict electrophysiological features from ion channel parameters using Jaxley for gradient-based optimization.</p>
+                    <h3 class="project-title">Flow Hop Harmony</h3>
+                    <p class="project-description"><strong>2-year research project</strong> at Shimojo Psychophysics Lab (Caltech). Built a game controlled by real-time EEG to study flow states — classifying brain activity patterns during peak performance.</p>
                     <span class="project-status">Ongoing Research</span>
                 </article>
 
                 <article class="project-card fade-in fade-in-delay-4">
                     <div class="project-number">04</div>
                     <div class="project-tags">
-                        <span class="project-tag primary">iOS</span>
-                        <span class="project-tag secondary">Firebase</span>
+                        <span class="project-tag primary">Computational Bio</span>
+                        <span class="project-tag secondary">Jaxley</span>
                     </div>
-                    <h3 class="project-title">Level Up: Basketball Training App</h3>
-                    <p class="project-description">A basketball training app on the App Store with 1,000+ downloads. Features a drill library, workout tracking, and progress systems backed by Firebase for user data and video storage.</p>
-                    <a href="https://apps.apple.com/us/app/together-level-up/id6463521780" class="project-link" target="_blank">
-                        View on App Store
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-                    </a>
+                    <h3 class="project-title">Predictive Electrophysiological Modeling</h3>
+                    <p class="project-description">Research at <strong>Cedars-Sinai Medical Center</strong>. Built ML pipelines predicting neuron behavior from ion channel parameters using Jaxley for differentiable simulation and gradient-based optimization.</p>
+                    <span class="project-status">Research Complete</span>
                 </article>
 
                 <article class="project-card fade-in fade-in-delay-5">
@@ -542,7 +621,7 @@
                         <span class="project-tag secondary">ROS2</span>
                     </div>
                     <h3 class="project-title">Prize-Fetching Autonomous Robot</h3>
-                    <p class="project-description">Built an autonomous robot using ROS2 with multi-threaded sensor fusion (IR, NFC, magnetometer). Achieved 95% retrieval accuracy using Dijkstra-based path planning for real-time navigation.</p>
+                    <p class="project-description">Autonomous robot with <strong>95% retrieval accuracy</strong>. Multi-threaded ROS2 system fusing IR, NFC, and magnetometer data with Dijkstra-based path planning for real-time navigation.</p>
                     <a href="https://github.com/Zeynoyder1/basket" class="project-link" target="_blank">
                         View on GitHub
                         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
@@ -558,8 +637,11 @@
             </div>
 
             <div class="about-content">
+                <div class="about-photo fade-in">
+                    <img src="zeynep.jpg" alt="Zeynep Göktepe">
+                </div>
                 <div class="about-text fade-in fade-in-delay-1">
-                    <p>Hi, I'm <strong>Zeynep Göktepe</strong> — a Computer Science student and researcher at the California Institute of Technology specializing in intelligent systems, machine learning, and human-computer interaction.</p>
+                    <p>Hi, I'm <strong>Zeynep Göktepe</strong> — a Computer Science student and researcher at Caltech, working at the intersection of machine learning and neuroscience.</p>
                     <p>My work bridges the gap between complex algorithmic structures and practical applications—spanning from developing ML pipelines for differentiable neuron modeling to deploying full-stack mobile applications and publishing iOS platforms with thousands of active downloads.</p>
                     <p>I thrive on creating systems that are mathematically rigorous, highly optimized, and visually intuitive. Whether training diffusion models or integrating multi-threaded autonomous robotics, my focus is pushing the boundaries of what intelligent software can achieve.</p>
                 </div>
