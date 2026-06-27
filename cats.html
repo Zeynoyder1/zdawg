@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Cats | Zeze</title>
+    <style>
+        :root {
+            --bg-dark: #0a0f1d;
+            --text-light: #ffffff;
+            --accent-blue: #3b82f6;
+            --glow-blue: rgba(59, 130, 246, 0.4);
+            --muted-blue: #94a3b8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: '-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .vignette {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            background: radial-gradient(circle, transparent 40%, rgba(10, 15, 29, 0.8) 100%);
+            pointer-events: none;
+        }
+
+        .content-wrapper {
+            position: relative;
+            z-index: 3;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem 0;
+            backdrop-filter: blur(5px);
+        }
+
+        .logo {
+            font-weight: 800;
+            font-size: 1.5rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            background: linear-gradient(45deg, #fff, var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+        }
+
+        .nav-links a {
+            color: var(--muted-blue);
+            text-decoration: none;
+            margin-left: 2rem;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            transition: color 0.3s ease, text-shadow 0.3s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--text-light);
+            text-shadow: 0 0 10px var(--glow-blue);
+        }
+
+        .page-header {
+            text-align: center;
+            padding: 4rem 0;
+        }
+
+        .page-label {
+            color: var(--accent-blue);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: 1rem;
+        }
+
+        .page-title {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .page-subtitle {
+            color: var(--muted-blue);
+            font-size: 1.1rem;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .cats-gallery {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            padding-bottom: 4rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .cat-card {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            aspect-ratio: 1;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+        }
+
+        .cat-card:hover {
+            transform: scale(1.02);
+            border-color: var(--accent-blue);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 40px rgba(59, 130, 246, 0.15);
+        }
+
+        .cat-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .cat-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .cat-card .cat-name {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 2rem 1.5rem 1.5rem;
+            background: linear-gradient(to top, rgba(10, 15, 29, 0.95), transparent);
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .cat-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--muted-blue);
+            font-size: 4rem;
+        }
+
+        .cat-placeholder span {
+            font-size: 0.9rem;
+            margin-top: 1rem;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--muted-blue);
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+            transition: color 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: var(--accent-blue);
+        }
+
+        .back-link svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        @media (max-width: 700px) {
+            .page-title { font-size: 2rem; }
+            .nav-links { display: none; }
+            .cats-gallery { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="bg-canvas"></canvas>
+    <div class="vignette"></div>
+
+    <div class="content-wrapper">
+        <nav>
+            <a href="index.html" class="logo">Zeze</a>
+            <div class="nav-links">
+                <a href="index.html#work">Work</a>
+                <a href="index.html#about">About</a>
+                <a href="cats.html" class="active">Cats</a>
+                <a href="index.html#contact">Contact</a>
+            </div>
+        </nav>
+
+        <a href="index.html" class="back-link">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0l4-4m-4 4h18"/></svg>
+            Back to Home
+        </a>
+
+        <div class="page-header">
+            <div class="page-label">The Real Stars</div>
+            <h1 class="page-title">My Cats</h1>
+            <p class="page-subtitle">The furry companions who supervise my coding sessions</p>
+        </div>
+
+        <div class="cats-gallery">
+            <div class="cat-card">
+                <img src="johnny.jpg" alt="Johnny" style="object-position: center 30%;">
+                <div class="cat-name">Johnny</div>
+            </div>
+
+            <div class="cat-card">
+                <img src="kara.jpg" alt="Kara">
+                <div class="cat-name">Kara</div>
+            </div>
+
+            <div class="cat-card">
+                <img src="benek.jpg" alt="Benek" style="object-position: center 10%;">
+                <div class="cat-name">Benek</div>
+            </div>
+
+            <div class="cat-card">
+                <img src="duffie.JPG" alt="Duffie">
+                <div class="cat-name">Duffie</div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+
+        const numParticles = 60;
+        const particles = [];
+        let mouse = { x: null, y: null, radius: 150 };
+
+        window.addEventListener('resize', () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        });
+
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.x;
+            mouse.y = e.y;
+        });
+
+        window.addEventListener('mouseout', () => {
+            mouse.x = null;
+            mouse.y = null;
+        });
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.baseX = this.x;
+                this.baseY = this.y;
+                this.size = Math.random() * 2 + 1;
+                this.density = (Math.random() * 30) + 10;
+                this.color = Math.random() > 0.5 ? '#ffffff' : '#3b82f6';
+                this.alpha = Math.random() * 0.5 + 0.2;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.globalAlpha = this.alpha;
+                ctx.fill();
+            }
+
+            update() {
+                if (mouse.x != null && mouse.y != null) {
+                    let dx = mouse.x - this.x;
+                    let dy = mouse.y - this.y;
+                    let distance = Math.sqrt(dx * dx + dy * dy);
+                    
+                    if (distance < mouse.radius) {
+                        let force = (mouse.radius - distance) / mouse.radius;
+                        let directionX = (dx / distance) * force * this.density * -0.5;
+                        let directionY = (dy / distance) * force * this.density * -0.5;
+                        this.x += directionX;
+                        this.y += directionY;
+                    }
+                }
+                
+                this.y -= 0.2;
+                if (this.y < 0) {
+                    this.y = height;
+                    this.x = Math.random() * width;
+                }
+            }
+        }
+
+        function init() {
+            for (let i = 0; i < numParticles; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+            }
+            requestAnimationFrame(animate);
+        }
+
+        init();
+        animate();
+    </script>
+</body>
+</html>
