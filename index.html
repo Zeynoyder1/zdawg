@@ -17,19 +17,18 @@
     <meta name="twitter:title" content="Zeynep Goktepe | CS @ Caltech">
     <meta name="twitter:description" content="ML, neuroscience, and systems researcher building intelligent software.">
     
-    <!-- Retro Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=VT323&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <!-- Lavender Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --bg-dark: #0a0a0f;
-            --bg-card: #111118;
-            --text-light: #e8e0d0;
-            --text-muted: #706860;
-            --accent-cyan: #00ffe0;
-            --accent-orange: #ff6b35;
-            --border-dark: #1e1e2e;
-            --glow-cyan: rgba(0, 255, 224, 0.3);
+            --bg-parchment: #f5f0e8;
+            --bg-cream: #faf8f4;
+            --text-dark: #3d3a36;
+            --text-muted: #8a8580;
+            --accent-lavender: #9b7b8e;
+            --accent-purple: #7d5a6a;
+            --border-light: #e0dbd3;
         }
 
         * {
@@ -39,44 +38,21 @@
         }
 
         body {
-            background-color: var(--bg-dark);
-            color: var(--text-light);
+            background-color: var(--bg-parchment);
+            color: var(--text-dark);
             overflow-x: hidden;
             min-height: 100vh;
-            font-family: 'Share Tech Mono', monospace;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 15px;
+            line-height: 1.7;
         }
 
-        /* Blinking cursor */
-        .blink {
-            animation: blink 1.2s step-end infinite;
-            color: var(--accent-cyan);
-        }
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
-        }
-
-        /* Interactive Particle Background */
-        #bg-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-            pointer-events: none;
-        }
-
-        /* Cinematic Overlay Gradients */
-        .vignette {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 2;
-            background: radial-gradient(circle, transparent 40%, rgba(10, 15, 29, 0.8) 100%);
-            pointer-events: none;
+        /* Hide particle effects for this theme */
+        #bg-canvas,
+        .vignette,
+        .scanlines,
+        .grid-bg {
+            display: none;
         }
 
         /* Layout Container */
@@ -93,152 +69,115 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1.5rem 0;
-            background: var(--bg-card);
-            margin: 0 -2rem;
-            padding-left: 2rem;
-            padding-right: 2rem;
-            border-bottom: 2px solid var(--accent-cyan);
+            padding: 2rem 0;
+            border-bottom: 1px solid var(--border-light);
         }
 
         .logo {
-            font-family: 'VT323', monospace;
-            font-size: 28px;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            color: var(--accent-cyan);
-            text-shadow: 0 0 10px var(--glow-cyan);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 24px;
+            font-weight: 400;
+            font-style: italic;
+            color: var(--text-dark);
+            letter-spacing: 1px;
+        }
+
+        .logo .blink {
+            display: none;
         }
 
         .nav-links a {
-            color: var(--accent-orange);
+            color: var(--text-muted);
             text-decoration: none;
-            margin-left: 2rem;
-            font-size: 13px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            transition: color 0.3s ease, text-shadow 0.3s ease;
+            margin-left: 2.5rem;
+            font-size: 14px;
+            letter-spacing: 0.5px;
+            transition: color 0.3s ease;
         }
 
         .nav-links a:hover {
-            color: var(--accent-cyan);
-            text-shadow: 0 0 10px var(--glow-cyan);
+            color: var(--accent-lavender);
         }
 
         .nav-links .resume-btn {
             background: transparent;
-            border: 1px solid var(--accent-cyan);
-            color: var(--accent-cyan);
-            padding: 0.5rem 1rem;
-            border-radius: 0;
+            border: 1px solid var(--accent-lavender);
+            color: var(--accent-lavender);
+            padding: 0.5rem 1.25rem;
+            border-radius: 20px;
             transition: all 0.3s ease;
         }
 
         .nav-links .resume-btn:hover {
-            background: var(--accent-cyan);
-            color: var(--bg-dark);
-            box-shadow: 0 0 20px var(--glow-cyan);
+            background: var(--accent-lavender);
+            color: white;
         }
 
         /* Hero Section */
         .hero {
-            height: calc(100vh - 100px);
+            min-height: 70vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: flex-start;
-            position: relative;
-            overflow: hidden;
-        }
-
-        /* Scanlines overlay */
-        .scanlines {
-            position: absolute;
-            inset: 0;
-            pointer-events: none;
-            background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,255,224,0.015) 2px, rgba(0,255,224,0.015) 4px);
-            z-index: 1;
-        }
-
-        /* Grid background */
-        .grid-bg {
-            position: absolute;
-            inset: 0;
-            pointer-events: none;
-            background-image: linear-gradient(rgba(0,255,224,0.03) 1px, transparent 1px),
-                              linear-gradient(90deg, rgba(0,255,224,0.03) 1px, transparent 1px);
-            background-size: 40px 40px;
-            z-index: 0;
+            padding: 4rem 0;
         }
 
         .hero-subtitle {
-            color: var(--accent-orange);
+            color: var(--text-muted);
             font-size: 12px;
             text-transform: uppercase;
-            letter-spacing: 4px;
+            letter-spacing: 3px;
             margin-bottom: 1.5rem;
-            animation: fadeIn 1.5s ease;
-            position: relative;
-            z-index: 2;
         }
 
         .hero-title {
-            font-family: 'VT323', monospace;
-            font-size: 64px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 52px;
             font-weight: 400;
-            line-height: 1.0;
+            font-style: italic;
+            line-height: 1.15;
             margin-bottom: 1.5rem;
-            letter-spacing: 2px;
-            max-width: 800px;
-            color: var(--accent-cyan);
-            text-shadow: 0 0 20px var(--glow-cyan);
-            position: relative;
-            z-index: 2;
+            max-width: 650px;
+            color: var(--text-dark);
         }
 
         .hero-title span {
-            color: var(--text-light);
-            text-shadow: none;
+            color: var(--accent-lavender);
         }
 
         .hero-tagline {
             color: var(--text-muted);
-            font-size: 1rem;
-            line-height: 1.7;
-            max-width: 550px;
+            font-size: 15px;
+            line-height: 1.8;
+            max-width: 500px;
             margin-bottom: 2.5rem;
-            position: relative;
-            z-index: 2;
         }
 
         .hero-buttons {
             display: flex;
             gap: 1rem;
             flex-wrap: wrap;
-            position: relative;
-            z-index: 2;
         }
 
-        /* Retro Button */
+        /* Elegant Button */
         .cta-btn {
             position: relative;
             background: transparent;
-            color: var(--accent-cyan);
-            border: 1px solid var(--accent-cyan);
-            padding: 1rem 2rem;
-            font-family: 'Share Tech Mono', monospace;
+            color: var(--accent-lavender);
+            border: 1px solid var(--accent-lavender);
+            padding: 0.85rem 1.75rem;
+            font-family: 'DM Sans', sans-serif;
             font-size: 13px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
+            letter-spacing: 0.5px;
             cursor: pointer;
-            overflow: hidden;
+            border-radius: 25px;
             transition: all 0.3s ease;
         }
 
         .cta-btn:hover {
-            background: var(--accent-cyan);
-            color: var(--bg-dark);
-            box-shadow: 0 0 20px var(--glow-cyan);
+            background: var(--accent-lavender);
+            color: white;
         }
 
         a.cta-btn {
@@ -247,15 +186,14 @@
         }
 
         .cta-secondary {
-            background: var(--accent-orange);
-            border-color: var(--accent-orange);
-            color: var(--bg-dark);
+            background: var(--accent-lavender);
+            border-color: var(--accent-lavender);
+            color: white;
         }
 
         .cta-secondary:hover {
-            background: transparent;
-            color: var(--accent-orange);
-            box-shadow: 0 0 20px rgba(255, 107, 53, 0.4);
+            background: var(--accent-purple);
+            border-color: var(--accent-purple);
         }
 
         /* Animations */
@@ -292,157 +230,111 @@
         }
 
         .section-label {
-            color: var(--accent-orange);
-            font-size: 10px;
+            color: var(--text-muted);
+            font-size: 11px;
             text-transform: uppercase;
-            letter-spacing: 3px;
-            margin-bottom: 0.75rem;
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
         }
 
         .section-title {
-            font-family: 'VT323', monospace;
+            font-family: 'Cormorant Garamond', serif;
             font-size: 32px;
             font-weight: 400;
-            color: var(--text-light);
+            font-style: italic;
+            color: var(--text-dark);
         }
 
         .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-            gap: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0;
         }
 
         .project-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-dark);
-            border-left: 3px solid var(--accent-cyan);
+            background: transparent;
+            border: none;
+            border-bottom: 1px dotted var(--border-light);
             border-radius: 0;
-            padding: 1.5rem;
+            padding: 1.5rem 0;
             position: relative;
+            display: grid;
+            grid-template-columns: 50px 1fr auto;
+            align-items: baseline;
+            gap: 1.5rem;
             transition: all 0.3s ease;
-        }
-
-        .project-card:nth-child(even) {
-            border-left-color: var(--accent-orange);
         }
 
         .project-card:hover {
-            transform: translateX(5px);
-            box-shadow: -5px 0 20px rgba(0, 255, 224, 0.1);
-        }
-
-        .project-card:nth-child(even):hover {
-            box-shadow: -5px 0 20px rgba(255, 107, 53, 0.1);
+            background: rgba(155, 123, 142, 0.03);
         }
 
         .project-number {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            font-size: 11px;
-            font-weight: 400;
-            color: var(--accent-cyan);
-            letter-spacing: 3px;
-            user-select: none;
-        }
-
-        .project-card:nth-child(even) .project-number {
-            color: var(--accent-orange);
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 14px;
+            color: var(--text-muted);
         }
 
         .project-tags {
-            display: flex;
-            gap: 0.75rem;
-            flex-wrap: wrap;
-            margin-bottom: 1rem;
+            display: none;
         }
 
         .project-tag {
-            font-size: 9px;
+            font-size: 11px;
             padding: 0;
-            border-radius: 0;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
             text-transform: uppercase;
             background: none;
-            color: #555566;
+            color: var(--text-muted);
         }
 
-        .project-tag.primary {
-            background: none;
-            color: var(--accent-cyan);
-        }
-
-        .project-card:nth-child(even) .project-tag.primary {
-            color: var(--accent-orange);
-        }
-
+        .project-tag.primary,
         .project-tag.secondary {
             background: none;
-            color: #555566;
+            color: var(--text-muted);
         }
 
         .project-title {
-            font-family: 'VT323', monospace;
-            font-size: 22px;
-            font-weight: 400;
-            margin-bottom: 0.75rem;
-            color: var(--text-light);
-            line-height: 1.2;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 0;
+            color: var(--text-dark);
+            line-height: 1.4;
         }
 
         .project-description {
-            color: var(--text-muted);
-            font-size: 13px;
-            line-height: 1.7;
-            margin-bottom: 1.25rem;
+            display: none;
         }
         
         .project-description strong {
-            color: var(--accent-cyan);
+            color: var(--accent-lavender);
         }
-        
-        .project-card:nth-child(even) .project-description strong {
-            color: var(--accent-orange);
+
+        .project-tech {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-align: right;
+            min-width: 80px;
         }
 
         .project-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--accent-cyan);
-            text-decoration: none;
-            font-size: 11px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            transition: all 0.3s ease;
-        }
-
-        .project-card:nth-child(even) .project-link {
-            color: var(--accent-orange);
-        }
-
-        .project-link:hover {
-            gap: 0.75rem;
-            text-shadow: 0 0 10px currentColor;
+            display: none;
         }
 
         .project-link svg {
-            width: 14px;
-            height: 14px;
+            display: none;
         }
 
         .project-status {
-            display: inline-block;
-            color: #555566;
-            font-size: 10px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
+            display: none;
         }
 
         /* About Section */
         .about-content {
             display: grid;
-            grid-template-columns: 250px 1fr;
+            grid-template-columns: 200px 1fr;
             gap: 3rem;
             align-items: start;
         }
@@ -454,32 +346,30 @@
 
         .about-photo img {
             width: 100%;
-            border-radius: 0;
-            border: 2px solid var(--accent-cyan);
+            border-radius: 8px;
+            border: none;
             transition: all 0.3s ease;
-            filter: grayscale(20%);
+            filter: sepia(10%);
         }
 
         .about-photo img:hover {
-            border-color: var(--accent-orange);
-            box-shadow: 0 0 30px rgba(0, 255, 224, 0.2);
-            filter: grayscale(0%);
+            filter: sepia(0%);
         }
 
         .about-text p {
             color: var(--text-muted);
-            font-size: 14px;
+            font-size: 15px;
             line-height: 1.8;
             margin-bottom: 1.25rem;
         }
 
         .about-text p:first-of-type {
-            color: var(--text-light);
-            font-size: 15px;
+            color: var(--text-dark);
         }
 
         .about-text strong {
-            color: var(--accent-cyan);
+            color: var(--accent-lavender);
+            font-weight: 500;
         }
 
         .skills-grid {
@@ -490,45 +380,32 @@
         }
 
         .skill-item {
-            background: #0a0a14;
-            border: 1px solid var(--border-dark);
-            border-top: 2px solid var(--accent-cyan);
-            border-radius: 0;
+            background: var(--bg-cream);
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
             padding: 1.25rem;
             transition: all 0.3s ease;
         }
 
-        .skill-item:nth-child(even) {
-            border-top-color: var(--accent-orange);
-        }
-
         .skill-item:hover {
-            box-shadow: 0 -5px 20px rgba(0, 255, 224, 0.1);
-        }
-
-        .skill-item:nth-child(even):hover {
-            box-shadow: 0 -5px 20px rgba(255, 107, 53, 0.1);
+            border-color: var(--accent-lavender);
         }
 
         .skill-icon {
-            font-size: 1.5rem;
+            font-size: 1.25rem;
             margin-bottom: 0.5rem;
         }
 
         .skill-name {
-            font-family: 'VT323', monospace;
-            font-size: 18px;
-            color: var(--accent-cyan);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-dark);
             margin-bottom: 0.25rem;
-            letter-spacing: 1px;
-        }
-
-        .skill-item:nth-child(even) .skill-name {
-            color: var(--accent-orange);
         }
 
         .skill-desc {
-            color: #555566;
+            color: var(--text-muted);
             font-size: 12px;
             line-height: 1.5;
         }
@@ -536,34 +413,34 @@
         /* Contact Section */
         .contact-content {
             text-align: center;
-            max-width: 600px;
+            max-width: 500px;
             margin: 0 auto;
         }
 
         .contact-content p {
             color: var(--text-muted);
-            font-size: 14px;
+            font-size: 15px;
             line-height: 1.8;
-            margin-bottom: 2.5rem;
+            margin-bottom: 2rem;
         }
 
         .contact-email {
             display: inline-block;
-            font-family: 'VT323', monospace;
-            font-size: 24px;
-            color: var(--accent-cyan);
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 22px;
+            color: var(--accent-lavender);
             text-decoration: none;
-            padding: 1rem 2rem;
-            border: 1px solid var(--accent-cyan);
-            border-radius: 0;
+            padding: 0.75rem 2rem;
+            border: 1px solid var(--accent-lavender);
+            border-radius: 30px;
             transition: all 0.3s ease;
-            margin-bottom: 3rem;
+            margin-bottom: 2.5rem;
         }
 
         .contact-email:hover {
-            background: var(--accent-cyan);
-            color: var(--bg-dark);
-            box-shadow: 0 0 30px var(--glow-cyan);
+            background: var(--accent-lavender);
+            color: white;
         }
 
         .social-links {
@@ -576,49 +453,47 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 45px;
-            height: 45px;
-            border: 1px solid var(--border-dark);
-            border-radius: 0;
-            color: var(--accent-orange);
+            width: 42px;
+            height: 42px;
+            border: 1px solid var(--border-light);
+            border-radius: 50%;
+            color: var(--text-muted);
             text-decoration: none;
             transition: all 0.3s ease;
         }
 
         .social-link:hover {
-            border-color: var(--accent-cyan);
-            color: var(--accent-cyan);
-            box-shadow: 0 0 15px var(--glow-cyan);
+            border-color: var(--accent-lavender);
+            color: var(--accent-lavender);
         }
 
         .social-link svg {
-            width: 20px;
-            height: 20px;
+            width: 18px;
+            height: 18px;
         }
 
         /* Footer */
         footer {
-            background: #060609;
+            background: transparent;
             text-align: center;
-            padding: 2rem 0;
-            color: #333344;
-            font-size: 11px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            border-top: 2px solid var(--accent-cyan);
+            padding: 3rem 0;
+            color: var(--text-muted);
+            font-size: 13px;
+            border-top: 1px solid var(--border-light);
             margin-top: 4rem;
         }
 
         /* Responsive Design */
         @media (max-width: 768px) {
             .hero-title { font-size: 36px; }
-            .hero-tagline { font-size: 13px; }
-            .hero-buttons { flex-direction: column; }
+            .hero-tagline { font-size: 14px; }
+            .hero-buttons { flex-direction: column; align-items: flex-start; }
             .nav-links { display: none; }
-            .projects-grid { grid-template-columns: 1fr; }
-            .section { padding: 4rem 0; }
+            .project-card { grid-template-columns: 40px 1fr; }
+            .project-tech { display: none; }
+            .section { padding: 3rem 0; }
             .about-content { grid-template-columns: 1fr; gap: 2rem; }
-            .about-photo { max-width: 180px; margin: 0 auto; position: static; }
+            .about-photo { max-width: 150px; margin: 0 auto; position: static; }
             .skills-grid { grid-template-columns: 1fr; }
             .contact-email { font-size: 18px; }
         }
@@ -631,7 +506,7 @@
 
     <div class="content-wrapper">
         <nav>
-            <div class="logo">ZEZE<span class="blink">_</span></div>
+            <div class="logo">Zeze</div>
             <div class="nav-links">
                 <a href="#work">Work</a>
                 <a href="#about">About</a>
@@ -644,12 +519,11 @@
         <section class="hero">
             <div class="scanlines"></div>
             <div class="grid-bg"></div>
-            <div class="hero-subtitle">> CS @ Caltech</div>
-            <h1 class="hero-title">Building ML systems <span>at the intersection of neuroscience and deep learning.</span></h1>
-            <p class="hero-tagline">From diffusion models to brain-computer interfaces — I build intelligent systems that push research forward.</p>
+            <div class="hero-subtitle">Zeynep Göktepe · Caltech CS</div>
+            <h1 class="hero-title">From <span>diffusion</span> to neural interfaces.</h1>
+            <p class="hero-tagline">Building at the boundary of machine learning and neuroscience.</p>
             <div class="hero-buttons">
-                <button class="cta-btn" onclick="document.getElementById('work').scrollIntoView({behavior: 'smooth'))">> View Projects</button>
-                <a href="zeynep-resume.pdf" class="cta-btn cta-secondary" target="_blank">> Download Resume</a>
+                <button class="cta-btn" onclick="document.getElementById('work').scrollIntoView({behavior: 'smooth'})">View Projects →</button>
             </div>
         </section>
 
@@ -662,63 +536,26 @@
             <div class="projects-grid">
                 <article class="project-card fade-in fade-in-delay-1">
                     <div class="project-number">01</div>
-                    <div class="project-tags">
-                        <span class="project-tag primary">iOS</span>
-                        <span class="project-tag secondary">Firebase</span>
-                    </div>
-                    <h3 class="project-title">Level Up: Basketball Training App</h3>
-                    <p class="project-description">Published iOS app with <strong>1,000+ downloads</strong> on the App Store. Built full-stack with Swift and Firebase — drill library, workout tracking, video storage, and user progression systems.</p>
-                    <a href="https://apps.apple.com/us/app/together-level-up/id6463521780" class="project-link" target="_blank">
-                        View on App Store
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-                    </a>
+                    <h3 class="project-title">Autoguidance Diffusion</h3>
+                    <span class="project-tech">PyTorch</span>
                 </article>
 
                 <article class="project-card fade-in fade-in-delay-2">
                     <div class="project-number">02</div>
-                    <div class="project-tags">
-                        <span class="project-tag primary">AI/ML</span>
-                        <span class="project-tag secondary">PyTorch</span>
-                    </div>
-                    <h3 class="project-title">Autoguidance for Diffusion-Based Inverse Problems</h3>
-                    <p class="project-description">Improving posterior sampling in diffusion models. Built benchmarks with Gaussian mixtures to test uncertainty calibration across DPS, DDNM+, and PnPDM samplers. <strong>Paper in preparation.</strong></p>
-                    <span class="project-status">Paper in Progress</span>
+                    <h3 class="project-title">Flow Hop Harmony</h3>
+                    <span class="project-tech">EEG</span>
                 </article>
 
                 <article class="project-card fade-in fade-in-delay-3">
                     <div class="project-number">03</div>
-                    <div class="project-tags">
-                        <span class="project-tag primary">Neuroinformatics</span>
-                        <span class="project-tag secondary">EEG / Unity</span>
-                    </div>
-                    <h3 class="project-title">Flow Hop Harmony</h3>
-                    <p class="project-description"><strong>2-year research project</strong> at Shimojo Psychophysics Lab (Caltech). Built a game controlled by real-time EEG to study flow states — classifying brain activity patterns during peak performance.</p>
-                    <span class="project-status">Ongoing Research</span>
+                    <h3 class="project-title">Level Up App</h3>
+                    <span class="project-tech">iOS</span>
                 </article>
 
                 <article class="project-card fade-in fade-in-delay-4">
                     <div class="project-number">04</div>
-                    <div class="project-tags">
-                        <span class="project-tag primary">Computational Bio</span>
-                        <span class="project-tag secondary">Jaxley</span>
-                    </div>
-                    <h3 class="project-title">Predictive Electrophysiological Modeling</h3>
-                    <p class="project-description">Research at <strong>Cedars-Sinai Medical Center</strong>. Built ML pipelines predicting neuron behavior from ion channel parameters using Jaxley for differentiable simulation and gradient-based optimization.</p>
-                    <span class="project-status">Research Complete</span>
-                </article>
-
-                <article class="project-card fade-in fade-in-delay-5">
-                    <div class="project-number">05</div>
-                    <div class="project-tags">
-                        <span class="project-tag primary">Robotics</span>
-                        <span class="project-tag secondary">ROS2</span>
-                    </div>
-                    <h3 class="project-title">Prize-Fetching Autonomous Robot</h3>
-                    <p class="project-description">Autonomous robot with <strong>95% retrieval accuracy</strong>. Multi-threaded ROS2 system fusing IR, NFC, and magnetometer data with Dijkstra-based path planning for real-time navigation.</p>
-                    <a href="https://github.com/Zeynoyder1/basket" class="project-link" target="_blank">
-                        View on GitHub
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-                    </a>
+                    <h3 class="project-title">Autonomous Robot</h3>
+                    <span class="project-tech">ROS2</span>
                 </article>
             </div>
         </section>
