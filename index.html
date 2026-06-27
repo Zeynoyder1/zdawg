@@ -332,33 +332,34 @@
         /* About Section */
         .about-content {
             display: grid;
-            grid-template-columns: 200px 1fr;
-            gap: 3rem;
+            grid-template-columns: 180px 1fr;
+            gap: 2.5rem;
             align-items: start;
         }
 
         .about-photo {
-            position: sticky;
-            top: 2rem;
+            grid-row: span 2;
         }
 
         .about-photo img {
             width: 100%;
-            border-radius: 8px;
+            border-radius: 12px;
             border: none;
             transition: all 0.3s ease;
-            filter: sepia(10%);
+            filter: sepia(5%);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
         }
 
         .about-photo img:hover {
             filter: sepia(0%);
+            transform: scale(1.02);
         }
 
         .about-text p {
             color: var(--text-muted);
             font-size: 15px;
             line-height: 1.8;
-            margin-bottom: 1.25rem;
+            margin-bottom: 1rem;
         }
 
         .about-text p:first-of-type {
@@ -373,39 +374,43 @@
         .skills-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 1rem;
-            margin-top: 2rem;
+            gap: 1.25rem;
+            margin-top: 2.5rem;
         }
 
         .skill-item {
-            background: var(--bg-cream);
+            background: white;
             border: 1px solid var(--border-light);
-            border-radius: 8px;
-            padding: 1.25rem;
+            border-radius: 12px;
+            padding: 1.5rem;
             transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
         }
 
         .skill-item:hover {
             border-color: var(--accent-lavender);
+            box-shadow: 0 4px 20px rgba(155, 123, 142, 0.1);
+            transform: translateY(-2px);
         }
 
         .skill-icon {
-            font-size: 1.25rem;
-            margin-bottom: 0.5rem;
+            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
         }
 
         .skill-name {
-            font-family: 'DM Sans', sans-serif;
-            font-size: 14px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 18px;
             font-weight: 500;
+            font-style: italic;
             color: var(--text-dark);
-            margin-bottom: 0.25rem;
+            margin-bottom: 0.5rem;
         }
 
         .skill-desc {
             color: var(--text-muted);
-            font-size: 12px;
-            line-height: 1.5;
+            font-size: 13px;
+            line-height: 1.6;
         }
 
         /* Contact Section */
@@ -493,9 +498,10 @@
             .project-tech { display: none; }
             .project-subtitle { font-size: 12px; }
             .section { padding: 3rem 0; }
-            .about-content { grid-template-columns: 1fr; gap: 2rem; }
-            .about-photo { max-width: 150px; margin: 0 auto; position: static; }
-            .skills-grid { grid-template-columns: 1fr; }
+            .about-content { grid-template-columns: 1fr; gap: 1.5rem; }
+            .about-photo { max-width: 140px; margin: 0 auto; grid-row: auto; }
+            .skills-grid { grid-template-columns: 1fr; gap: 1rem; }
+            .skill-item { padding: 1.25rem; }
             .contact-email { font-size: 18px; }
         }
     </style>
@@ -527,23 +533,41 @@
                 </div>
             </div>
             <div class="hero-decoration">
-                <svg viewBox="0 0 100 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <!-- Stem -->
-                    <path d="M50 200 Q48 150 52 100 Q54 80 50 60" stroke="#8a9a7a" stroke-width="2" fill="none"/>
+                <svg viewBox="0 0 120 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Main Stem -->
+                    <path d="M60 220 Q58 170 62 120 Q64 90 60 65" stroke="#7a8a6a" stroke-width="3" fill="none"/>
+                    <!-- Second Stem -->
+                    <path d="M60 150 Q75 130 85 100 Q88 85 82 60" stroke="#7a8a6a" stroke-width="2.5" fill="none"/>
+                    <!-- Third Stem -->
+                    <path d="M60 160 Q45 140 38 105 Q35 85 40 55" stroke="#7a8a6a" stroke-width="2.5" fill="none"/>
+                    
                     <!-- Leaves -->
-                    <path d="M50 140 Q30 130 25 145 Q35 150 50 140" fill="#a8b89a"/>
-                    <path d="M50 120 Q70 110 75 125 Q65 130 50 120" fill="#a8b89a"/>
-                    <path d="M50 160 Q70 150 72 165 Q62 170 50 160" fill="#a8b89a"/>
-                    <!-- Lavender buds -->
-                    <ellipse cx="50" cy="55" rx="6" ry="10" fill="#9b7b8e"/>
-                    <ellipse cx="45" cy="45" rx="5" ry="8" fill="#a88b9e"/>
-                    <ellipse cx="55" cy="42" rx="5" ry="8" fill="#a88b9e"/>
-                    <ellipse cx="50" cy="35" rx="5" ry="9" fill="#9b7b8e"/>
-                    <ellipse cx="44" cy="28" rx="4" ry="7" fill="#a88b9e"/>
-                    <ellipse cx="56" cy="26" rx="4" ry="7" fill="#a88b9e"/>
-                    <ellipse cx="50" cy="18" rx="4" ry="8" fill="#9b7b8e"/>
-                    <ellipse cx="47" cy="10" rx="3" ry="6" fill="#a88b9e"/>
-                    <ellipse cx="53" cy="8" rx="3" ry="5" fill="#a88b9e"/>
+                    <path d="M60 180 Q35 165 28 185 Q42 195 60 180" fill="#98a888"/>
+                    <path d="M60 165 Q85 150 90 170 Q76 180 60 165" fill="#98a888"/>
+                    <path d="M60 195 Q80 185 85 200 Q72 208 60 195" fill="#a0b090"/>
+                    
+                    <!-- Main flower buds -->
+                    <ellipse cx="60" cy="60" rx="8" ry="12" fill="#9b7b8e"/>
+                    <ellipse cx="54" cy="48" rx="7" ry="10" fill="#a88b9e"/>
+                    <ellipse cx="66" cy="45" rx="7" ry="10" fill="#a88b9e"/>
+                    <ellipse cx="60" cy="35" rx="7" ry="11" fill="#9b7b8e"/>
+                    <ellipse cx="53" cy="25" rx="6" ry="9" fill="#a88b9e"/>
+                    <ellipse cx="67" cy="23" rx="6" ry="9" fill="#a88b9e"/>
+                    <ellipse cx="60" cy="14" rx="5" ry="8" fill="#9b7b8e"/>
+                    
+                    <!-- Second flower buds -->
+                    <ellipse cx="82" cy="58" rx="6" ry="9" fill="#a88b9e"/>
+                    <ellipse cx="78" cy="48" rx="5" ry="8" fill="#9b7b8e"/>
+                    <ellipse cx="85" cy="42" rx="5" ry="7" fill="#a88b9e"/>
+                    <ellipse cx="80" cy="33" rx="4" ry="7" fill="#9b7b8e"/>
+                    <ellipse cx="84" cy="25" rx="4" ry="6" fill="#a88b9e"/>
+                    
+                    <!-- Third flower buds -->
+                    <ellipse cx="40" cy="52" rx="6" ry="9" fill="#a88b9e"/>
+                    <ellipse cx="44" cy="42" rx="5" ry="8" fill="#9b7b8e"/>
+                    <ellipse cx="38" cy="35" rx="5" ry="7" fill="#a88b9e"/>
+                    <ellipse cx="42" cy="26" rx="4" ry="7" fill="#9b7b8e"/>
+                    <ellipse cx="39" cy="18" rx="4" ry="6" fill="#a88b9e"/>
                 </svg>
             </div>
         </section>
@@ -564,8 +588,17 @@
                     <span class="project-tech">PyTorch</span>
                 </article>
 
-                <article class="project-card fade-in fade-in-delay-2">
+                <a href="https://apps.apple.com/us/app/together-level-up/id6463521780" target="_blank" class="project-card fade-in fade-in-delay-2">
                     <div class="project-number">02</div>
+                    <div class="project-content">
+                        <h3 class="project-title">Level Up Basketball</h3>
+                        <p class="project-subtitle">iOS app · 1,000+ downloads on App Store</p>
+                    </div>
+                    <span class="project-tech">Swift ↗</span>
+                </a>
+
+                <article class="project-card fade-in fade-in-delay-3">
+                    <div class="project-number">03</div>
                     <div class="project-content">
                         <h3 class="project-title">Flow Hop Harmony</h3>
                         <p class="project-subtitle">EEG-controlled game · Shimojo Lab, Caltech</p>
@@ -573,32 +606,23 @@
                     <span class="project-tech">Unity · EEG</span>
                 </article>
 
-                <article class="project-card fade-in fade-in-delay-3">
-                    <div class="project-number">03</div>
-                    <div class="project-content">
-                        <h3 class="project-title">Level Up Basketball</h3>
-                        <p class="project-subtitle">iOS app · 1,000+ downloads on App Store</p>
-                    </div>
-                    <span class="project-tech">Swift</span>
-                </article>
-
                 <article class="project-card fade-in fade-in-delay-4">
                     <div class="project-number">04</div>
-                    <div class="project-content">
-                        <h3 class="project-title">Autonomous Prize Robot</h3>
-                        <p class="project-subtitle">Multi-sensor fusion · 95% retrieval accuracy</p>
-                    </div>
-                    <span class="project-tech">ROS2</span>
-                </article>
-
-                <article class="project-card fade-in fade-in-delay-5">
-                    <div class="project-number">05</div>
                     <div class="project-content">
                         <h3 class="project-title">Neural Electrophysiology</h3>
                         <p class="project-subtitle">ML pipelines · Cedars-Sinai Medical Center</p>
                     </div>
                     <span class="project-tech">Jaxley</span>
                 </article>
+
+                <a href="https://github.com/Zeynoyder1/basket" target="_blank" class="project-card fade-in fade-in-delay-5">
+                    <div class="project-number">05</div>
+                    <div class="project-content">
+                        <h3 class="project-title">Autonomous Prize Robot</h3>
+                        <p class="project-subtitle">Multi-sensor fusion · 95% retrieval accuracy</p>
+                    </div>
+                    <span class="project-tech">ROS2 ↗</span>
+                </a>
             </div>
         </section>
 
